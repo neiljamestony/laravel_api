@@ -37,22 +37,25 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // This function is for inserting only. Create a function with single purpose only
     public function store(Request $request)
     {
         $customers = $request->isMethod('put') ? Customer::findOrFail
         ($request->id) : new Customer;
 
-
+        
         $customers->id = $request->input('id');
         $customers->firstname = $request->input('firstname');
         $customers->lastname = $request->input('lastname');
         $customers->age = $request->input('age');
         $customers->email = $request->input('email');
+        
 
         if($customers->save()){
 
             return new CustomerResource($customers);
         }
+        
     }
 
     /**
